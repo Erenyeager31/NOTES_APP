@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/sign_up.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- <script src="https://smtpjs.com/v3/smtp.js"></script> -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <title>Sign Up Page</title>
+</head>
+<body>
+    <div class="container">
+        <h6 id="conf_msg" class="text-success text-center"></h6>
+        <form id="form_container" class="form_container">
+          {% csrf_token %}
+          <h3>Sign Up Page</h3>
+          <div class="option">
+            <a href="login" type="button" class="login">LOGIN</a>
+            <a type="button" class="sign_up">SIGN UP</a>
+          </div>
+          <!-- Container for login page -->
+          <div class="sign_p">
+            <div class="name_box">
+              <label class="name_label">Name:</label>
+              <input type="text" name="name" id="name" class="name" required/>
+            </div>
+            <div class="email_box">
+              <label class="email_label">Email:</label>
+              <input type="email" name="email" id="email" class="email" required/>
+            </div>
+            <div class="password_box">
+              <label for="" class="password_label">Password:</label>
+              <input
+                type="password"
+                name="password"
+                id="password"
+                class="password"
+                required
+              />
+              <i onclick="changetype()" id="eye" class="fa fa-eye"></i>
+            </div>
+          </div>
+          <div class="sign_box">
+            <button type="submit" id="sign_b" class="sign_b">SIGN UP</button>
+          </div>
+        </form>
+      </div>
+</body>
+<script>
+  function changetype(){
+    let password = document.getElementById("password")
+    // console.log(password.type)
+    if(password.type == "password")
+    password.type = "text";
+    else
+    password.type = "password";
+  }
+
+  // document.getElementById("conf_msg").style.display = "none"
+
+  $(document).on('submit','#form_container' , function(e){
+    e.preventDefault(); //avoid refreshing the page
+    $.ajax({
+      type: 'POST',
+      url: '/signuphandle',
+      data:{
+        name: $('#name').val(),
+        email: $('#email').val(),
+        password:$('#password').val(),
+        csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val()
+      },
+      success:function(data){
+        // alert(data)
+        console.log(data)
+        document.getElementById("conf_msg").innerHTML = data
+      },
+      error:function(data){
+        alert("NO")
+        alert(data.state)
+      }
+    })
+  })
+</script>
+</html>

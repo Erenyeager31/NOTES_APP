@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title id="title">Login Page</title>
+    <link rel="stylesheet" href="/static/login.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+  </head>
+  <body>
+    <div class="container">
+      <h6 id="alert_msg" class="text-success text-center"></h6>
+      <form id="form_container" class="form_container">
+        {% csrf_token %}
+        <h3>Login Page</h3>
+        <div class="option">
+          <a type="button" class="login">LOGIN</a>
+          <a href="sign_up" type="button" class="sign_up">SIGN UP</a>
+        </div>
+        <div class="login_p">
+          <div class="email_box">
+            <label class="email_label">Email:</label>
+            <input type="email"  name="email" id="email" class="email" required/>
+          </div>
+          <div class="password_box">
+            <label for="" class="password_label">Password:</label>
+            <input
+              type="password"
+              name="password"
+              id="password"
+              class="password"
+              required
+              >
+              <i onclick="changetype()" id="eye" class="fa fa-eye"></i>
+            </input>
+          </div>
+          <div class="forgot">
+            <a href="/" class="forgot_pass">Forgot Password ?</a>
+          </div>
+        </div>
+        <div class="login_box">
+          <button type="submit" class="login_b">LOGIN</button>
+        </div>
+      </form>
+    </div>
+  </body>
+
+<script>
+  function changetype(){
+    let password = document.getElementById("password")
+    // console.log(password.type)
+    if(password.type == "password")
+    password.type = "text";
+    else
+    password.type = "password";
+  }
+  
+  let status = "NO"
+
+  $(document).on('submit','#form_container' , function(e){
+    e.preventDefault();
+    $.ajax({
+      type:"POST",
+      url:"/loginhandle",
+      data:{
+        email: $('#email').val(),
+        password: $('#password').val(),
+        csrfmiddlewaretoken : $('input[name=csrfmiddlewaretoken]').val()
+      },
+      success:function(data){
+        if(data == "Success"){
+          window.location.assign("home")
+        }
+        else{
+          document.getElementById("alert_msg").innerHTML = data
+        }
+      },
+      error:function(data){
+        alert("Could not process Your request ! Please try again after sometime")
+      }
+    })
+  })
+</script>
+</html>

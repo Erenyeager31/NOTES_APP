@@ -1,0 +1,213 @@
+{% extends 'base.html' %} 
+{% block title %}Home Page{% endblock title %} 
+{% block style %} <link rel="stylesheet" href="/static/home.css" /> {% endblock style %}
+<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> -->
+{% block email %}{{ context.credentials.email }}{% endblock email %} 
+{% block content %} 
+
+<div class="container-1">
+  <div id="option" class="option">
+    <button type="button" onclick="show('1')" class="notes">NOTES</button>
+    <button type="button" onclick="show('2')" class="todo">Quicknote</button>
+  </div>
+</div>
+<div class="main-container">
+
+    <!--! The notes part starts here -->
+
+  <div id="notes-main" class="notes_main">
+    <div class="list">
+      <div id="list_head" class="list_head">
+        <p>NOTES</p>
+        <a href="home" id="refresh" class="refresh">Refresh</a>
+      </div>
+
+      <div id="note_list" class="note_list">
+        {% for i in context.notes %}
+        <div
+          onclick="opennotes({{ i }})"
+          id="list_element"
+          class="list_element"
+        >
+          <div class="title">{{ i.title }}</div>
+          <hr class="ruler" />
+          <div class="content">{{ i.content }}</div>
+        </div>
+        {% endfor %}
+      </div>
+      <div class="new_notes"></div>
+    </div>
+    <form class="area">
+      {% csrf_token %}
+      <div id="area_head" class="area_head">
+        <input
+          type="text"
+          id="title"
+          class="title_1"
+          placeholder="Enter Title of your Note"
+        />
+      </div>
+      <div id="area_text" class="area_text">
+        <div class="text">
+          <textarea
+            name="notes_content"
+            id="notes_content"
+            class="notes_content"
+            cols="30"
+            rows="10"
+          ></textarea>
+        </div>
+        <div id="toolsbar" class="toolsbar">
+          <div class="tools">
+            <!-- <i class="fas fa-text" >T</i> -->
+            <!-- <i class="fas fa-palette">P</i> -->
+            <!-- <i class="fa fa-square-check-o"></i> -->
+            <div class="delete_b">
+              <button class="delete" id="delete" onclick="del()">Delete</button>
+            </div>
+          </div>
+          <div class="save">
+            <button onclick="savenotes()" type="button" class="save_notes">
+              SAVE
+            </button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+  <!--! The Notes part ends here -->
+
+  <!--! This part is html for TODO list -->
+
+  <div id="todo-main" class="todo_main">
+    <form action="" class="todo">
+      <textarea name="" id="" cols="30" rows="10" class="todoarea">
+        
+      </textarea>
+    </form>
+  </div>
+  <!--! The TODO part ends here -->
+  </div>
+</div>
+
+{% endblock content %} {% block script %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+<script>
+  //setting the previously used color for the theme
+  document.getElementById('nav').style.backgroundColor = '{{context.theme.col1}}'
+  document.getElementById('menu').style.backgroundColor = '{{context.theme.col2}}'
+  document.getElementById('option').style.backgroundColor = '{{context.theme.col2}}'
+  document.body.style.backgroundColor = '{{context.theme.col3}}'
+  document.getElementById('list_head').style.color = '{{context.theme.col2}}'
+  document.getElementById('refresh').style.backgroundColor = '{{context.theme.col2}}'
+  document.getElementById('area_head').style.backgroundColor = '{{context.theme.col2}}'
+  document.getElementById('title').style.backgroundColor = '{{context.theme.col2}}'
+  let elements = document.getElementById('note_list').children
+  for (i = 0; i < elements.length; i++)
+    elements[i].style.backgroundColor = '{{context.theme.col2}}'
+  document.getElementById('toolsbar').style.backgroundColor = '{{context.theme.col4}}'
+
+  var notes = document.getElementById('notes-main')
+  var todo = document.getElementById('todo-main')
+  //   console.log(notes)
+  notes.style.display = 'flex'
+  todo.style.display = 'none'
+
+  function show(n) {
+    if (n == '1') {
+      if(notes.style.display == 'none') {
+        notes.style.display = 'flex'
+        todo.style.display = 'none'
+      }
+    }
+    if (n == '2') {
+      if(todo.style.display == 'none') {
+        todo.style.display = 'flex'
+        notes.style.display = 'none'
+        document.getElementById('area_head').style.backgroundColor = '{{context.theme.col2}}'
+      }
+      todo_theme()
+    }
+  }
+
+  function savenotes() {
+    let title = document.getElementById('title').value
+    let content = document.getElementById('notes_content').value
+    let email = document.getElementById('title_email').innerHTML
+    // alert(content)
+    $.ajax({
+      type: 'POST',
+      url: '/savenotes',
+      data: {
+        title: title,
+        content: content,
+        email: email,
+        csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val()
+      },
+      success: function (data) {
+        // if(data == "saved")
+        // alert("Your Note is Saved")
+        alert(data)
+      }
+    })
+  }
+
+  function opennotes(i) {
+    console.log(document.getElementById('title'))
+    document.getElementById('title').value = i.title
+    document.getElementById('notes_content').innerHTML = i.content
+  }
+
+  function del() {
+    let title = document.getElementById('title').value
+
+    $.ajax({
+      type: 'POST',
+      url: 'delete',
+      data: {
+        title: title,
+        csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val()
+      },
+      success: function (result) {
+        alert(result)
+        document.getElementById('title').value = ''
+        document.getElementById('notes_content').innerHTML = ''
+      },
+      error: function () {
+        alert('Some error occured ! Please try Again later')
+      }
+    })
+  }
+
+  function save_theme() {
+    // alert("HI")
+
+    let theme = document.getElementById('theme')
+    theme.style.display = 'none'
+
+    var col1 = document.getElementById('nav').style.backgroundColor
+    var col2 = document.getElementById('menu').style.backgroundColor
+    var col3 = document.body.style.backgroundColor
+    var col4 = document.getElementById('toolsbar').style.backgroundColor
+
+    $.ajax({
+      type: 'POST',
+      url: '/theme',
+      data: {
+        col1: col1,
+        col2: col2,
+        col3: col3,
+        col4: col4,
+        csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val()
+      },
+      success: function (e) {}
+    })
+  }
+
+  function logout() {
+    window.location.assign('logout')
+  }
+</script>
+{% load static %}
+<script src=" {% static 'theme.js' %} "></script>
+{% endblock script %}

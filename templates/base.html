@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> {% block title %}base page{% endblock title %} </title>
+    <link rel="stylesheet" href="/static/base.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    {% block style %}{% endblock style %}
+
+    {% load static %}
+    <script src=" {% static 'theme.js' %} "></script>
+</head>
+<body>
+
+    {% block navbar %}
+        <header id="nav" class="nav">
+            <div class="logo">
+                <h2>NOTES ORGANIZER</h2>
+            </div>
+
+            <div id="theme" class="theme">
+                <div class="row1">
+                <div onclick="change_theme('1');save_theme()" class="green">Green</div>
+                <div onclick="change_theme('2');save_theme()" class="red">Red</div>
+            </div>
+            <div class="row2">
+                <div onclick="change_theme('3');save_theme()" class="blue">Blue</div>
+                <div onclick="change_theme('4');save_theme()" class="purple">Purple</div>
+            </div>
+            <div class="row3">
+                <div onclick="change_theme('5');save_theme()" class="black">Black</div>
+                {% comment %} <div onclick="change_theme('6')" class="yellow">Yellow</div> {% endcomment %}
+            </div>
+            </div>
+            <div class="profile">
+                <div onclick="drop_theme()" class="drop_theme">Change Theme</div>
+                <p id="title_email" class="name">{% block email %}{% endblock email %}</p><i id="dropmenu" onclick="menu()" class='fa fa-chevron-down'></i>
+            </div>
+            <div id="menu" class="menu">
+                <ul>
+                    <!-- <li onclick="close_menu();profile()">Profile  <i class='fa fa-chevron-right'></i> </li> -->
+                    <li onclick="close_menu();logout()">Logout <i class='fa fa-chevron-right'></i> </li>
+                    <!-- <li onclick="close_menu()">Settings <i class='fa fa-chevron-right'></i> </li> -->
+                    <!-- <li>Change Theme <i class="fa fa-chevron-right"></i> </li> -->
+                </ul>
+            </div>
+        </header>
+    {% endblock navbar %}
+    {% block content %}
+    
+    {% endblock content %}
+</body>
+<script>
+    let menu_var =  document.getElementById("menu")
+    menu_var.style.display = "none"
+
+    let theme =  document.getElementById("theme")
+    theme.style.display = "none"
+
+    // const drop = document.getElementById("dropmenu").innerHTML
+
+    function menu(){
+        if(menu_var.style.display == "none"){
+            menu_var.style.display = "flex"
+            menu_var.style.transition = "0.7"
+        }
+        
+        else
+        menu_var.style.display = "none"
+    }
+
+    function close_menu(){
+        menu_var.style.display = "none"
+    }
+
+    function drop_theme(){
+        if(theme.style.display == "none"){
+            theme.style.display = "block"
+        }
+        else
+        theme.style.display = "none"
+    }
+
+</script>
+
+{% block script %}{% endblock script %}
+</html>

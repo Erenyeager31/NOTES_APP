@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title id="title">Login Page</title>
+    <link rel="stylesheet" href="/static/otp.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://smtpjs.com/v3/smtp.js"></script>
+  </head>
+  <body>
+    <div class="container">
+      <form action="" method="post" class="form_container">
+        {% csrf_token %}
+        <h3>ENTER THE OTP</h3>
+        <div class="msg_container">
+        <p class="message">Enter the Otp sent to your Email ID  </p>
+        <p id="email" class="email"> {{email}} </p>
+        </div>
+        <div class="otp_page">
+          <div class="otp_box">
+            <input type="text"  name="otp" id="otp" class="otp" required maxlength="6"/>
+          </div>
+        </div>
+        <div class="skip">
+            <a href="home" class="later">skip? verify later</a >
+        </div>
+        <div class="login_box">
+          <button type="button" id="otp_button" onclick="sendotp()" class="login_b">SEND OTP</button>
+        </div>
+      </form>
+    </div>
+  </body>
+
+<script>
+    var email = document.getElementById("email")
+    // console.log(email)
+    if (email == ""){
+        // console.log(email)
+        window.location("sign_up")
+    }
+    
+</script>
+
+</html>
+

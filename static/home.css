@@ -1,0 +1,307 @@
+.container-1{
+    width: 100%;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.option{
+    width: 20%;
+    height: 50px;
+    background-color: rgb(76, 154, 16);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px 10px;
+    /* margin-top: 20px; */
+    border: 2px solid #f2f2f2;
+    border-radius: 10px;
+ }
+
+ .notes,.todo{
+    width: 50%;
+    height: 100%;
+    background: none;
+    border: none;
+    /* outline: none; */
+    text-transform: uppercase;
+    color: #f2f2f2;
+    font-weight: 700;
+    cursor: pointer ;
+ }
+
+ .notes:focus,.todo:focus{
+    /* text-shadow: 0px 0px 5px rgb(111, 241, 12); */
+    color: rgb(172, 251, 0);
+    transition: 0.7s;
+ }
+
+.main-container{
+    width: 100%;
+    height: 600px;
+    /* background-color: #f2f2f2; */
+    /* margin-top: 10px; */
+    padding: 20px 30px;
+    display: flex;
+}
+
+ .notes_main{
+    width: 100%;
+    height: 600px;
+    display: flex;
+    /* justify-content: center;
+    align-items: center;*/
+ } 
+
+ .list{
+    width: 25%;
+    height: 590px;
+    border: 2px solid #f2f2f2;
+    margin-right: 10px;
+    /* background-color: aqua; */
+ }
+
+.area{
+    width:75%;
+    height: 590px;
+    /* background-color: #04ff22; */
+}
+
+.list_head{
+    width: 100%;
+    height: 10%;
+    /* background-color: aqua; */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: rgb(76, 154, 16);
+    font-weight: 900;
+    font-size: 30px;
+    border-bottom: 1px solid black;
+    padding: 0px 10px;
+}
+
+.refresh{
+    width: 70px;
+    height: 45px;
+    border-radius: 20px;
+    font-size: 15px;
+    background-color: rgb(76, 154, 16);
+    text-decoration: none;
+    color: #f2f2f2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.note_list{
+    width: 100%;
+    height: 90%;
+    /* background-color: green; */
+    overflow-y: scroll;
+    /* overflow-x: scroll; */
+}
+
+.area_head{
+    width: 100%;
+    height: 10%;
+    /* background-color: aqua; */
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    /* padding-left: 20px; */
+    background-color: rgb(76, 154, 16);
+    color: #f2f2f2;
+    font-size: 30px;
+    border: 2px solid #f2f2f2;
+}
+
+.title_1{
+    background-color: rgb(76, 154, 16);
+    width: 100%;
+    height: 100%;
+    outline: none;
+    border: none;
+    padding: 0px 20px;
+    font-size: 20px;
+    color: #f2f2f2;
+    font-weight: 700;
+}
+
+.title_1::placeholder{
+    color: #d1d0d0;
+}
+
+.area_text{
+    width: 100%;
+    height: 90%;
+    background-color: #f2f2f2;
+    border: 2px solid #f2f2f2;
+}
+
+.list_element{
+    width: 100%;
+    height: 20%;
+    /* background-color: aquamarine; */
+    border: 2px solid #f2f2f2;
+    display: block;
+    padding: 10px 10px;
+    background-color: rgb(76, 154, 16);
+}
+
+.title{
+    width: 100%;
+    height: 20%;
+    /* border-radius: 5px;
+    border: 2px solid #f2f2f2; */
+    padding: 0px 5px;
+    /* padding-bottom: 5px; */
+    margin-bottom: 5px;
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    color: #f2f2f2;
+    /* text-transform: uppercase; */
+}
+
+.content{
+    width: 100%;
+    height: 70%;
+    /* border-radius: 10px;
+    border: 2px solid #f2f2f2; */
+    display: flex;
+    overflow: hidden;
+    justify-content: center;
+    padding: 0px 5px;
+    font-family:Georgia, 'Times New Roman', Times, serif;
+    color: #f2f2f2;
+}
+
+
+.ruler{
+    border: 0.2px solid #f2f2f2;
+    /* border-color: black; */
+}
+
+.ruler-1{
+    border: 0.1px solid black;
+}
+
+.text{
+    width: 100%;
+    height: 90%;
+}
+
+.toolsbar{
+    width: 100%;
+    height: 10%;
+    background-color: rgb(141, 225, 76);
+    display: flex;
+}
+
+.notes_content{
+    width: 100%;
+    height: 100%;
+    /* border: none; */
+    border-bottom: 1px solid black;
+    resize: none;
+    font-size: 20px;
+    padding: 10px;
+}
+
+.notes_content:focus{
+    outline: none;
+}
+
+.tools{
+    width: 85%;
+    height: 100%;
+    /* background-color: aqua; */
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    padding: 10px ;
+}
+
+.save{
+    width: 15%;
+    height: 100%;
+    /* background-color: yellow; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.save_notes{
+    width: 80%;
+    height: 80%;
+    border: 2px white;
+    border-radius: 20px;
+    font-weight: 500;
+}
+
+/* .tools i:hover{
+    font-size: 30px;
+} */
+
+.delete_b{
+    width: 100%;
+    height: 50px;
+    display: flex;
+    justify-content: left;
+    align-items: center;
+}
+
+.delete{
+    width: 90px;
+    height: 45px;
+    border: none;
+    /* color:#f2f2f2; */
+    font-size: 15px;
+    border-radius: 20px;
+}
+
+/* This part onwards is the CSS for the todo list functionality */
+
+.todo_main{
+    width: 100%;
+    height: 600px;
+    display: flex;
+    /* background-color: #f2f2f2; */
+}
+
+.left{
+    width: 24%;
+    background-color: green;
+    display: block;
+    margin-right: 2%;
+}
+
+.lefthead{
+    width: 100%;
+    height: 10%;
+    background-color: #f2f2f2;
+}
+
+.leftlist{
+    width: 100%;
+    height: 90%;
+}
+
+.right{
+    width: 74%;
+    background-color: yellow;
+}
+
+.righthead{
+    width: 100%;
+    height: 10%;
+    background-color: #f2f2f2
+}
+
+.rightarea{
+    width: 100%;
+    height: 90%;
+}
